@@ -1,264 +1,537 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<title>Siqi Sun @ Fudan University </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siqi Sun | Fudan University</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Global Variables --- */
+        :root {
+            --primary-color: #0056b3; /* Academic Blue */
+            --text-dark: #222;
+            --text-light: #555;
+            --bg-color: #f9f9f9;
+            --sidebar-width: 260px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+        }
+
+        a { color: var(--primary-color); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* --- Layout Wrapper --- */
+        .wrapper {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            display: flex;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            min-height: 800px;
+        }
+
+        /* --- Left Sidebar --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #f8f9fa;
+            
+            /* ALIGNMENT FIX: 
+               Top padding is now 20px. 
+               This matches the Navbar top padding (20px) exactly. 
+               Photo and Nav links will now align. 
+            */
+            padding: 0px 30px 40px 30px;
+            
+            flex-shrink: 0;
+            border-right: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            text-align: left; 
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            /* Focus on the right side to crop out the horse */
+            object-position: 82% 25%; 
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            border: 5px solid #fff;
+            align-self: center; 
+        }
+
+        .sidebar h1 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.2;
+        }
+
+        .sidebar h3 {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            color: #666;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+        .contact-info p { margin-bottom: 10px; display: flex; align-items: center; }
+        .contact-info i { width: 24px; color: #999; margin-right: 8px; text-align: center; font-size: 1rem; }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px; 
+            justify-content: flex-start; 
+        }
+        .social-links a { 
+            font-size: 1.6rem; 
+            color: #555; 
+            transition: color 0.2s; 
+        }
+        .social-links a:hover { color: var(--primary-color); }
+
+        /* --- Right Main Content --- */
+        .main-content {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid #eee;
+            
+            /* Top padding is 20px. Matches Sidebar padding. */
+            padding: 20px 40px; 
+            
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: sticky; 
+            top: 0;
+            z-index: 100;
+        }
+        .navbar a {
+            color: #444;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            /* Visual adjustment to align text baseline with top of photo */
+            line-height: 1.2; 
+        }
+        .navbar a:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* --- Content Sections --- */
+        .content-body { 
+            padding: 40px; 
+        } 
+        
+        section { margin-bottom: 60px; scroll-margin-top: 80px; }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            color: #111;
+            line-height: 1.3;
+        }
+
+        /* Ensure first header has no extra space */
+        section:first-child h2 {
+            margin-top: 0;
+        }
+
+        p { margin-bottom: 15px; text-align: justify; color: #333; }
+
+        /* Recruitment Box */
+        .recruitment-box {
+            background-color: #f8fbff;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px 25px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        .recruitment-box strong { color: #000; }
+
+        /* Publication List Styling */
+        .pub-item { margin-bottom: 25px; }
+        .pub-title { 
+            font-weight: 600; 
+            color: #000; 
+            font-size: 1.05rem; 
+            display: block; 
+            margin-bottom: 4px;
+        }
+        .pub-title:hover { color: var(--primary-color); text-decoration: none; }
+        
+        .pub-authors { display: block; color: #555; font-size: 0.95rem; margin-bottom: 4px; }
+        .pub-venue { font-style: italic; color: #000; font-size: 0.9rem; }
+        
+        .tag-row { margin-top: 6px; }
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            border: 1px solid #ddd;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #666;
+            margin-right: 8px;
+            transition: all 0.2s;
+        }
+        .tag:hover { 
+            border-color: var(--primary-color); 
+            color: var(--primary-color); 
+            background: #f0f8ff; 
+            text-decoration: none; 
+        }
+        .venue-badge {
+            display: inline-block;
+            background-color: #e7f1ff; /* Light blue background */
+            color: #0056b3;            /* Dark blue text */
+            font-weight: 700;          /* Bold */
+            font-size: 0.8rem;
+            padding: 3px 8px;          /* Space inside the badge */
+            border-radius: 4px;        /* Rounded corners */
+            margin-top: 5px;           /* Space above the badge */
+            font-style: normal;        /* Remove italics if set globally */
+            border: 1px solid #b3d7ff; /* Optional: subtle border */
+        }
+
+        .venue-bold {
+            color: #d9534f;       /* A professional red/brick color */
+            font-weight: 700;     /* Bold */
+            font-size: 0.9rem;
+            font-style: normal;   /* Not italic */
+            margin-top: 4px;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 850px) {
+            .wrapper { flex-direction: column; margin: 0; border-radius: 0; }
+            /* Reset padding on mobile since they stack */
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #eee; align-items: center; text-align: center; padding: 40px 20px; }
+            .profile-img { width: 220px; height: 220px; margin: 0 auto 20px; }
+            .contact-info { justify-content: center; }
+            .contact-info p { justify-content: center; }
+            .social-links { justify-content: center; }
+            .navbar { padding: 15px 20px; gap: 15px; font-size: 0.8rem; justify-content: center; position: relative; }
+            .content-body { padding: 30px 20px; }
+        }
+    </style>
 </head>
 <body>
-<div id="layout-content">
-<div id="toptitle">
-<h1>Siqi Sun</h1>
+
+<div class="wrapper">
+    
+    <aside class="sidebar">
+        <img src="siqi.jpg" alt="Siqi Sun" class="profile-img">
+        
+        <h1>Siqi Sun</h1>
+        <h3>Associate Professor<br>Fudan University</h3>
+
+        <div class="contact-info">
+            <p><i class="fas fa-university"></i> Fudan & Shanghai AI Lab</p>
+            <p><i class="fas fa-map-marker-alt"></i> Shanghai, China</p>
+            <p><i class="fas fa-envelope"></i> siqisun [at] fudan.edu.cn</p>
+        </div>
+
+        <div class="social-links">
+            <a href="https://scholar.google.com/citations?user=2dyg3WgAAAAJ&hl=en" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="https://github.com/intersun" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/siqi-sun/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+        <nav class="navbar">
+            <a href="#about">About</a>
+            <a href="#preprints">Preprints</a>
+            <a href="#publications">Publications</a>
+            <a href="#recruitment">Recruitment</a>
+            <a href="#Personal">Misc</a>
+        </nav>
+
+        <div class="content-body">
+            <section id="about">
+                <h2>About Me</h2>
+                <p>
+                    I am a tenure-track Associate Professor at the <a href="https://iics.fudan.edu.cn/">Institute of Intelligent Complex Systems (IICS)</a>, Fudan University, and a Researcher at <a href="https://www.shlab.org.cn/">Shanghai AI Lab</a>.
+                </p>
+                <p>
+                    My research focuses on <strong>AI for Science</strong> and <strong>LLMs for Scientific Discovery</strong>. I am primarily interested in developing foundational generative models for biomolecular structure prediction/design, proteomics and AIVC, while also expanding into Agentic Science for autonomous scientific reasoning.
+                </p>
+                <p>
+                    Previously, I was a Researcher on the Knowledge and Language Team at <strong>Microsoft Research</strong>, working with <a href="https://www.linkedin.com/in/jingjing-liu-65703431/">JJ Liu</a> and <a href="https://www.microsoft.com/en-us/research/people/jfgao/">Jianfeng Gao</a>. I received my PhD from <a href="http://www.ttic.edu">TTI-Chicago</a>, a philanthropically endowed computer science research institute in the University of Chicago, advised by <a href="http://ttic.uchicago.edu/~jinbo/">Prof. Jinbo Xu</a>.
+                </p>
+            </section>
+            
+
+
+            <section id="preprints">
+                <h2>Preprints</h2>
+                
+                <div class="pub-item">
+                    <a href="https://arxiv.org/abs/2507.02025" class="pub-title">IntFold: A Controllable Foundation Model for General and Specialized Biomolecular Structure Prediction</a>
+                    <span class="pub-authors">The IntFold Team, Leon Qiao, Wayne Bai, He Yan, Gary Liu, Nova Xi, Xiang Zhang, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">arXiv 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://www.biorxiv.org/content/10.1101/2025.06.03.657658v1" class="pub-title">OriGene: A Self-Evolving Virtual Disease Biologist Automating Therapeutic Target Discovery</a>
+                    <span class="pub-authors">Zhongyue Zhang*, Zijie Qiu*, Yingcheng Wu*, Shuya Li*, Dingyan Wang, Zhuomin Zhou, Duo An, Yuhan Chen, Yu Li, Yongbo Wang, Chubin Ou, Zichen Wang, Jack Xiaoyu Chen, Bo Zhang, Yusong Hu, Wenxin Zhang, Zhijian Wei, Runze Ma, Qingwu Liu, Bo Dong, Yuexi He, Qiantai Feng, Lei Bai<sup>#</sup>, Qiang Gao<sup>#</sup>, <b>Siqi Sun<sup>#</sup></b>, Shuangjia Zheng<sup>#</sup></span>
+                    <div class="venue-bold">bioRxiv 2025 (Under Review)</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://www.biorxiv.org/content/10.1101/2025.06.20.660691v1" class="pub-title">MassNet: billion-scale AI-friendly mass spectral corpus enables robust de novo peptide sequencing</a>
+                    <span class="pub-authors">A Jun*, Xiang Zhang*, Xiaofan Zhang*, Jiaqi Wei*, Te Zhang, Yamin Deng, Pu Liu, Zongxiang Nie, Yi Chen, Nanqing Dong, Zhiqiang Gao<sup>#</sup>, <b>Siqi Sun<sup>#</sup></b>, Tiannan Guo<sup>#</sup></span>
+                    <div class="venue-bold">bioRxiv 2025 (Under Review)</div>
+                </div>
+                
+                <div class="pub-item">
+                    <a href="https://arxiv.org/abs/2508.02137" class="pub-title">Fitness aligned structural modeling enables scalable virtual screening with AuroBind</a>
+                    <span class="pub-authors">Zhongyue Zhang<sup>*</sup>, Jiahua Rao<sup>*</sup>, Jie Zhong, Weiqiang Bai, Dongxue Wang, Shaobo Ning, Lifeng Qiao, Sheng Xu, Runze Ma, Will Hua, <b>Siqi Sun<sup>#</sup></b>, Jian Zhang<sup>#</sup>, Shuangjia Zheng<sup>#</sup></span>
+                    <div class="venue-bold">arXiv 2025 (Under Review)</div>
+                </div>
+            </section>
+
+            <section id="publications">
+                <h2>Selected Publications</h2>
+                
+                <p style="font-size: 0.9em; color: #777; margin-bottom: 25px;">
+                    * indicates co-first author, # indicates co-corresponding author
+                </p>
+
+                <h3 style="font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 20px; margin-top: 30px; color: #444;">Journal Papers</h3>
+
+                <div class="pub-item">
+                    <a href="https://www.researchgate.net/publication/398332310_Benchmarking_all-atom_biomolecular_structure_prediction_with_FoldBench" class="pub-title">Benchmarking all-atom biomolecular structure prediction with FoldBench</a>
+                    <span class="pub-authors">Sheng Xu*, Qiantai Feng*, Lifeng Qiao, Hao Wu, Tao Shen, Yu Cheng<sup>#</sup>, Shuangjia Zheng<sup>#</sup>, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">Nature Communications, 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://doi.org/10.1126/science.adv3451" class="pub-title">Cryo-EM reveals mechanisms of natural RNA multivalency</a>
+                    <span class="pub-authors">Liu Wang*, Jiahao Xie*, Tao Gong*, Hao Wu*, Yifan Tu*, Xin Peng*, Sitong Shang*, Xinyu Jia, Haiyun Ma, Jian Zou, Sheng Xu, Xin Zheng, Dong Zhang, Yang Liu, Chong Zhang, Yongbo Luo, Zirui Huang, Bin Shao, Binwu Ying, Yu Cheng, <b>Siqi Sun<sup>#</sup></b>, Xuedong Zhou<sup>#</sup>, Zhaoming Su<sup>#</sup></span>
+                    <div class="venue-bold">Science, 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://doi.org/10.1038/s41587-024-02353-6" class="pub-title">Fast, sensitive detection of protein homologs using deep dense retrieval</a>
+                    <span class="pub-authors">Liang Hong*, Zhihang Hu*, <b>Siqi Sun<sup>*,#</sup></b>, Xiangru Tang, Jiuming Wang, Qingxiong Tan, Liangzhen Zheng, Sheng Wang, Sheng Xu, Irwin King, Mark Gerstein<sup>#</sup>, Yu Li<sup>#</sup></span>
+                    <div class="venue-bold">Nature Biotechnology, 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11695716/" class="pub-title">&pi;-PrimeNovo: an accurate and efficient non-autoregressive deep learning model for de novo peptide sequencing</a>
+                    <span class="pub-authors">Xiang Zhang*, Tianze Ling*, Zhi Jin*, Sheng Xu*, Zhiqiang Gao, Boyan Sun, Zijie Qiu, Jiaqi Wei, Nanqing Dong, Guangshuai Wang, Guibin Wang, Leyuan Li, Muhammad Abdul-Mageed, Laks V.S. Lakshmanan, Fuchu He, Wanli Ouyang<sup>#</sup>, Cheng Chang<sup>#</sup>, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">Nature Communications, 2025</div>
+                </div>
+
+                 <div class="pub-item">
+                    <a href="https://doi.org/10.1038/s41592-024-02487-0" class="pub-title">Accurate RNA 3D structure prediction using a language model-based deep learning approach</a>
+                    <span class="pub-authors">Tao Shen*, Zhihang Hu*, <b>Siqi Sun<sup>*,#</sup></b>, Di Liu, Felix Wong, Jiuming Wang, Jiayang Chen, Yixuan Wang, Liang Hong, Jin Xiao, Mark Gerstein, Yu Li<sup>#</sup></span>
+                    <div class="venue-bold">Nature Methods, 2024</div>
+                </div>
+                
+                <div class="pub-item">
+                    <a href="https://academic.oup.com/bib/article/25/4/bbae288/7697779" class="pub-title">Accurate prediction of antibody function and structure using bio-inspired antibody language model</a>
+                    <span class="pub-authors">Hongtai Jing<sup>*</sup>, Zhengtao Gao, Sheng Xu, Tao Shen, Zhangzhi Peng, Shwai He, Tao You, Shuang Ye<sup>#</sup>, Wei Lin<sup>#</sup>, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">Briefings in Bioinformatics 2024</div>
+                </div>
+
+                
+                <h3 style="font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 20px; margin-top: 30px; color: #444;">Conference Papers</h3>
+
+                <div class="pub-item">
+                    <a href="https://arxiv.org/abs/2510.08169" class="pub-title">Bidirectional Representations Augmented Autoregressive Biological Sequence Generation: Application in De Novo Peptide Sequencing</a>
+                    <span class="pub-authors">Xiang Zhang<sup>*</sup>, Jiaqi Wei<sup>*</sup>, Zijie Qiu, Sheng Xu, Zhi Jin, ZhiQiang Gao, Nanqing Dong, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">NeurIPS 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://openreview.net/forum?id=cnUq7GkS6d" class="pub-title">Retrieval is Not Enough: Enhancing RAG through Test-Time Critique and Optimization</a>
+                    <span class="pub-authors">Jiaqi Wei<sup>*</sup>, Hao Zhou<sup>*</sup>, Xiang Zhang<sup>*</sup>, Di Zhang, Zijie Qiu, Noah Wei, Jinzhe Li, Wanli Ouyang, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">NeurIPS 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://openreview.net/forum?id=HtSdgubxsJ" class="pub-title">Universal Biological Sequence Reranking for Improved De Novo Peptide Sequencing</a>
+                    <span class="pub-authors">Zijie Qiu*, Jiaqi Wei*, Xiang Zhang*, Sheng Xu, Kai Zou, Zhi Jin, Zhiqiang Gao, Nanqing Dong, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">ICML 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://openreview.net/forum?id=WbLXcMt2eG" class="pub-title">Curriculum Learning for Biological Sequence Prediction: The Case of De Novo Peptide Sequencing</a>
+                    <span class="pub-authors">Xiang Zhang*, Jiaqi Wei*, Zijie Qiu, Sheng Xu, Nanqing Dong, Zhiqiang Gao, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">ICML 2025</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://ojs.aaai.org/index.php/AAAI/article/view/30600" class="pub-title">PriFold: Biological Priors Improve RNA Secondary Structure Predictions</a>
+                    <span class="pub-authors">Chenchen Yang<sup>*</sup>, Hao Wu<sup>*</sup>, Tao Shen, Kai Zou, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">AAAI 2025</div>
+                </div>
+               
+                <div class="pub-item">
+                    <a href="https://openreview.net/forum?id=bM6LUC2lec" class="pub-title">MSA Generation with Seqs2Seqs Pretraining: Advancing Protein Structure Predictions</a>
+                    <span class="pub-authors">Le Zhang*, Jiayang Chen, Tao Shen, Yu Li, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">NeurIPS 2024</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://dblp.org/rec/conf/aaai/JinXZLDOGCS24" class="pub-title">ContraNovo: a contrastive learning approach to enhance de novo peptide sequencing</a>
+                    <span class="pub-authors">Zhi Jin*, Sheng Xu*, Xiang Zhang*, Tianze Ling, Nanqing Dong, Wanli Ouyang, Zhiqiang Gao, Cheng Chang<sup>#</sup>, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">AAAI 2024</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://aaai.org/wp-content/uploads/2024/01/AAAI_Main-Track_2023-12-27.pdf" class="pub-title">Crossbind: Collaborative cross-modal identification of protein nucleic-acid-binding residues</a>
+                    <span class="pub-authors">Linglin Jing*, Sheng Xu*, Yifan Wang*, Yuzhe Zhou, Tao Shen, Zhigang Ji, Hui Fang, Zhen Li, <b>Siqi Sun<sup>#</sup></b></span>
+                    <div class="venue-bold">AAAI 2024</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://ojs.aaai.org/index.php/AAAI/article/view/21430" class="pub-title">Retgen: A joint framework for retrieval and grounded text generation modeling</a>
+                    <span class="pub-authors">Yizhe Zhang, <b>Siqi Sun</b>, Xiang Gao, Yuwei Fang, Chris Brockett, Michel Galley, Jianfeng Gao, Bill Dolan</span>
+                    <div class="venue-bold">AAAI 2022</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://www.aclweb.org/anthology/2021.naacl-main.77" class="pub-title">LightningDOT: Pre-training Visual-Semantic Embeddings for Real-Time Image-Text Retrieval</a>
+                    <span class="pub-authors"><b>Siqi Sun*</b>, Yen-Chun Chen*, Linjie Li, Shuohang Wang, Yuwei Fang, Jingjing Liu</span>
+                    <div class="venue-bold">NAACL 2021</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://arxiv.org/abs/2009.14167" class="pub-title">Contrastive Distillation on Intermediate Representations for Language Model Compression</a>
+                    <span class="pub-authors"><b>Siqi Sun</b>, Zhe Gan, Yu Cheng, Yuwei Fang, Shuohang Wang, Jingjing Liu</span>
+                    <div class="venue-bold">EMNLP 2020</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://arxiv.org/abs/1911.00536" class="pub-title">DialoGPT: Large-Scale Generative Pre-training for Conversational Response Generation</a>
+                    <span class="pub-authors">Yizhe Zhang, <b>Siqi Sun</b>, Michel Galley, Yen-Chun Chen, Chris Brockett, Xiang Gao, Jianfeng Gao, Jingjing Liu, Bill Dolan</span>
+                    <div class="venue-bold">ACL 2020 (System Demo)</div>
+                    <div class="tag-row"><a href="https://github.com/microsoft/DialoGPT" class="tag">Code</a></div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://arxiv.org/abs/1909.11764" class="pub-title">FreeLB: Enhanced Adversarial Training for Language Understanding</a>
+                    <span class="pub-authors">Chen Zhu*, Yu Cheng*, Zhe Gan*, <b>Siqi Sun*</b>, Tom Goldstein, Jingjing Liu</span>
+                    <div class="venue-bold">ICLR 2020 (Spotlight)</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://arxiv.org/abs/1908.09355" class="pub-title">Patient Knowledge Distillation for BERT Model Compression</a>
+                    <span class="pub-authors"><b>Siqi Sun</b>, Yu Cheng, Zhe Gan, Jingjing Liu</span>
+                    <div class="venue-bold">EMNLP 2019</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://aclanthology.org/D19-1509/" class="pub-title">Hierarchical graph network for multi-hop question answering</a>
+                    <span class="pub-authors">Yuwei Fang, <b>Siqi Sun</b>, Zhe Gan, Rohit Pillai, Shuohang Wang, Jingjing Liu</span>
+                    <div class="venue-bold">EMNLP 2019</div>
+                </div>
+
+                <h3 style="font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 20px; margin-top: 30px; color: #444;">Earlier Publications</h3>
+                <div class="pub-item">
+                    <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005324" class="pub-title">Accurate De Novo Prediction of Protein Contact Map by Ultra-Deep Learning Model</a>
+                    <span class="pub-authors">Sheng Wang*, <b>Siqi Sun*</b>, Zhen Li, Renyu Zhang, Jinbo Xu</span>
+                    <div class="venue-bold">PLOS Computational Biology, 2017</div>
+                </div>
+
+                
+                <div class="pub-item">
+                    <a href="https://proceedings.neurips.cc/paper/2015/hash/07e1cd7dca89a1678042477183b7ac3f-Abstract.html" class="pub-title">Learning Structured Densities via Infinite Dimensional Exponential Families</a>
+                    <span class="pub-authors"><b>Siqi Sun</b>, Mladen Kolar, Jinbo Xu</span>
+                    <div class="venue-bold">NeurIPS 2015</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="http://proceedings.mlr.press/v37/tang15.html" class="pub-title">Learning scale-free networks by dynamic node specific degree prior</a>
+                    <span class="pub-authors">Qingming Tang<sup>*</sup>, <b>Siqi Sun<sup>*</sup></b>, Jinbo Xu</span>
+                    <div class="venue-bold">ICML 2015</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="http://proceedings.mlr.press/v38/sun15.html" class="pub-title">Inferring Block Structure of Graphical Models in Exponential Families</a>
+                    <span class="pub-authors"><b>Siqi Sun</b>, Hai Wang, Jinbo Xu</span>
+                    <div class="venue-bold">AISTATS 2015</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="http://proceedings.mlr.press/v33/sun14.html" class="pub-title">Adaptive Variable Clustering in Gaussian Graphical Models</a>
+                    <span class="pub-authors"><b>Siqi Sun*</b>, Yuancheng Zhu*, Jinbo Xu</span>
+                    <div class="venue-bold">AISTATS 2014</div>
+                </div>
+
+                <div class="pub-item">
+                    <a href="https://academic.oup.com/nar/article/40/3/e18/2409477" class="pub-title">An iterative network partition algorithm for accurate identification of dense network modules</a>
+                    <span class="pub-authors"><b>Siqi Sun*</b>, Xinran Dong*, Yao Fu, Weidong Tian</span>
+                    <div class="venue-bold">Nucleic Acids Research 2012</div>
+                </div>
+
+            </section>
+
+            <section id="recruitment">
+                <h2>Recruitment</h2>
+                <div class="recruitment-box">
+                    <p>
+                        I am actively recruiting self-motivated <strong>PhD students</strong> <span style="color: #d9534f;">(Closed for Fall 2026)</span>, <strong>Research Interns</strong>, and <strong>Full-time Research Scientists</strong> at Shanghai AI Lab and Fudan University. Postdocs and Research Assistants are also welcome.
+                    </p>
+                    <p>
+                        Our research group focuses on <strong>AI for Science</strong> (e.g., biomolecular structure prediction, drug discovery) and <strong>Large Language Models</strong>. 
+                    </p>
+                    <p>
+                        Candidates with backgrounds in <strong>Computer Science, Mathematics, Physics, Biology, or Chemistry</strong> are all highly valued. If you are interested, please send your CV and transcripts to my email.
+                    </p>
+                </div>
+            </section>
+
+            
+            <section id="Personal">
+                <h2>Misc</h2>
+                <p>
+                    In my spare time, I enjoy rock music <i class="fas fa-guitar"></i>, video games <i class="fas fa-gamepad"></i>, and trading card games <i class="fas fa-dice-d20"></i>.
+                </p>
+            </section>
+            <div style="margin-top: 50px; text-align: center; border-top: 1px solid #eee; padding-top: 30px;">
+                <h3 style="font-size: 1rem; color: #777; margin-bottom: 15px;">Visitor Map</h3>
+            <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=u2VnmVYzBqyhwkgjIhPcXRMmpxl7jPvPuqqfz1u6tP4&cl=ffffff&w=500"></script>
+            </div>
+        </div>
+    </main>
 </div>
-<table class="imgtable"><tr><td>
-<a href="index.html"><img src="images/siqi.jpg" alt="alt text" width="320px" height="240px" /></a>&nbsp;</td>
-<td align="left"><p> Associate Professor from<br />
-<a href="https://iics.fudan.edu.cn/">IICS</a>, <a href="https://www.fudan.edu.cn/en/">Fudan University</a> and <a href="https://www.shlab.org.cn/">Shanghai AI Lab</a> <br />
-220 Handan Rd, Shanghai, China, 200437 <br />
- Email: <i>siqisun</i>[AT] fudan.edu.cn OR <i>sunsiqi1</i>[AT] pjlab.org.cn </p>
 
-<p><a href="https://scholar.google.com/citations?user=2dyg3WgAAAAJ&hl=en"> Google Scholar </a></p>
-<p><a href="https://www.linkedin.com/in/siqi-sun/"> LinkedIn </a></p>
-<p><a href="https://github.com/intersun"> Github </a></p>
-<p><a href="https://iics.fudan.edu.cn/c1/48/c33358a442696/page.htm"> Fudan Homepage </a></p>
-<p><a href="https://ttic.uchicago.edu/~siqi/"> Old Homepage</a></p>
-
-</td></tr></table>
-
-<h2>About Me</h2>
-<p> I am a tenure-track Associate Professor (Young PI) from Fudan University and Shanghai AI Lab. Previously, I was a Researcher from <a href="https://www.microsoft.com/en-us/research/group/knowledge-and-language/">Knowledge and Language Team</a> under <a href="https://www.microsoft.com/en-us/research/group/cognitive-services-research/">Cognitive Services Research Group</a> at Microsoft. I am mainly interested in deep learning and its applications in NLP and computational biology. More specifically, model compression/acceleration, knowledge graph, information retrieval, dialog response generation, protein/RNA structure prediction.
-<p>Before that, I was a PhD student at <a href="http://www.ttic.edu">TTI-Chicago</a>, a philanthropically endowed computer science research institute in <a href="http://www.uchicago.edu">University of Chicago</a> . For more about TTIC, please refer to <a href="http://www.ttic.edu/about.php">About TTIC</a>. And I am fortunate to work with <a href="http://ttic.uchicago.edu/~jinbo/">Prof. Jinbo Xu</a>.<br />
-<p>Prior to joining TTIC in 2011, I was a undergraduate student from  School of Mathematics, <a href="http://www.fudan.edu.cn/en">Fudan University, China.</a></p>
-<p>For more details, please refer to my <a href="https://www.linkedin.com/pub/siqi-sun/17/3/103">LinkedIn</a>.</p>
-
-<h2> Internships & Industrial Experiences </h2>
-    <ul style="list-style-type:disc;padding-left:30px;line-height:27px;">
-        <li> Mar 2022 - present, Associate Professor, <a href="http://www.fudan.edu.cn/en">Fudan University</a> </li>
-        <li> Mar 2022 - present, - , <a href="https://www.shlab.org.cn/">Shanghai AI Lab</a> </li>
-        <li> Mar 2018 - Mar 2022, Researcher, <a href="https://microsoft.com">Microsoft</a> </li>
-        <li> Jun 2015 - Sep 2015, Research Intern, <a href="http://www.adobe.com/technology.html">Adobe Research</a> , Mentor: <a href="http://www.bkveton.com/">Branislav Kveton</a>, <a href="https://sites.google.com/site/buihhung/">Hung Bui</a></li>
-        <li> Mar 2011 - Jun 2011, Quant Research Intern, <a href="https://www.ubs.com/us/en.html">UBS Shanghai</a> , Mentor: <a href="https://www.linkedin.com/in/wenfeng-cao-9517a621">Wenfeng Cao </a> </li>
-        <li> Jul 2010 - Nov 2010, Quant Research Intern, <a href="http://operasolutions.com/">Opera Solutions Shanghai</a> , Mentor: <a href="https://www.linkedin.com/in/karl-xu-a52b2a10">Karl Xu </a> </li>
-    </ul>
-
-
-<h2> News </h2>
-<ul style="list-style-type:disc;padding-left:30px;line-height:27px;">
-    <li> Our <a href="https://arxiv.org/abs/1911.03631">HGN</a> algorithm achieves NO.1 on <a href="https://hotpotqa.github.io/">HotpotQA</a> for both distractor setting and fullwiki setting.</li>
-    <li> Our <a href="https://github.com/microsoft/DialoGPT"> DialoGPT </a> project was featured by <a href="https://www.adweek.com/digital/microsoft-releases-gpt-2-blueprint-advanced-chatbot-offensive/">Adweek</a>,
-        <a href="https://www.theregister.co.uk/2019/11/07/microsoft_pg13_chatbot/">The Register</a>,
-        <a href="https://syncedreview.com/2019/11/19/can-bots-surpass-the-realism-of-human-dialogue/">Synced</a> and
-        <a href="https://www.jiqizhixin.com/articles/2019-11-20-5">Jiqizhixin(机器之心, in Chinese).</a> </li>
-    <li> My manager and I were interviewed by <a href="https://www.nytimes.com/2019/09/04/technology/artificial-intelligence-aristo-passed-test.html">The New York Times</a> for our NO.1 leaderboard results on
-        both <a href="https://leaderboard.allenai.org/arc/submissions/public">ARC</a> and <a href="https://www.tau-nlp.org/commonsenseqa">CommonsenseQA.</a>. </li>
-    <li> Our <a href="https://openreview.net/forum?id=BygzbyHFvB&noteId=BygzbyHFvB"> FreeLB </a> paper achieves NO.1 on GLUE benchmark and was reported by <a href="https://www.infoq.com/news/2019/10/microsoft-adversarial-nlp/">InfoQ</a>.</li>
-    <li> Our deep learning paper for <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005324">contact prediction</a> won the <a href="https://www.plos.org/computational-biology-research-prize">2018 PLoS Computational Biology Research Prize</a> in the category of Breakthrough/Innovation.</li>
-    <li> I will join <a href="https://www.microsoft.com/en-us">Microsoft(Redmond)</a> in 2018! </li>
-    <li> My work with Prof Jinbo Xu was reported by <a href="https://www.sciencemag.org/custom-publishing/technology-features/structural-biology-shapes"> Science </a> and <a href="http://www.economist.com/news/science-and-technology/21716603-only-quarter-known-protein-structures-are-human-how-determine-proteins"> The Economist </a>.</li>
-    <li> Our contact prediction algorithm won the 1st place in CASP12! Please see <a href="http://onlinelibrary.wiley.com/doi/10.1002/prot.25407/full">this paper</a> for the official ranking table. </li>
-</ul>
-
-<h2>Publications</h2>
-
-*-equal contribution
-<ul>
-<li><p><b>Joint retrieval and generation training for grounded text generation </b>  <br />
-Yizhe Zhang, <b>Siqi Sun</b>, Xiang Gao, Yuwei Fang, Chris Brockett, Michel Galley, Jianfeng Gao, Bill Dolan
-<br />
-<a href="https://arxiv.org/pdf/2105.06597"> arxiv 2021 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>LightningDOT: Pre-training Visual-Semantic Embeddings for Real-Time Image-Text Retrieval </b>  <br />
-<b>Siqi Sun*</b>, Yen-Chun Chen*, Linjie Li, Shuohang Wang, Yuwei Fang, Jingjing Liu
-<br />
-<a href="https://www.aclweb.org/anthology/2021.naacl-main.77"> NAACL 2021 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Cluster-Former: Clustering-based Sparse Transformer for Long-Range Dependency Encoding </b>  <br />
- Shuohang Wang, Luowei Zhou, Zhe Gan, Yen-Chun Chen, Yuwei Fang, <b>Siqi Sun</b>, Yu Cheng, Jingjing Liu
-<br />
-<a href="https://arxiv.org/abs/2009.06097"> Findings of ACL 2021 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>FILTER: An Enhanced Fusion Method for Cross-lingual Language Understanding </b>  <br />
- Yuwei Fang, Shuohang Wang, Zhe Gan, <b>Siqi Sun</b>, Jingjing Liu
-<br />
-<a href="https://arxiv.org/abs/2009.05166"> AAAI 2021 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Accelerating Real-Time Question Answering via Question Generation </b>  <br />
- Yuwei Fang, Shuohang Wang, Zhe Gan, <b>Siqi Sun</b>, Jingjing Liu
-<br />
-<a href="https://arxiv.org/abs/2009.05167"> arxiv 2020 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Cross-Thought for Sentence Encoder Pre-training </b>  <br />
- Shuohang Wang, Yuwei Fang, <b>Siqi Sun</b>, Zhe Gan, Yu Cheng, Jingjing Liu and Jing Jiang
-<br />
-<a href="https://arxiv.org/abs/2010.03652"> EMNLP 2020 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Contrastive Distillation on Intermediate Representations for Language Model Compression </b>  <br />
-    <b>Siqi Sun</b>, Zhe Gan, Yu Cheng, Yuwei Fang, Shuohang Wang, Jingjing Liu
-<br />
-<a href="https://arxiv.org/abs/2009.14167"> EMNLP 2020 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Hierarchical Graph Network for Multi-hop Question Answering </b>  <br />
-    Yuwei Fang, <b>Siqi Sun</b>, Zhe Gan, Rohit Pillai, Shuohang Wang, Jingjing Liu
-<br />
-<a href="https://arxiv.org/abs/1911.03631"> EMNLP 2020 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b> DialoGPT: Large-Scale Generative Pre-training for Conversational Response Generation </b> <br />
-    Yizhe Zhang, <b>Siqi Sun</b>, Michel Galley, Yen-Chun Chen, Chris Brockett, Xiang Gao, Jianfeng Gao, Jingjing Liu, Bill Dolan
-<br />
-    <a href="https://arxiv.org/abs/1911.00536"> ACL 2020 Demo </a> <a href="https://github.com/microsoft/DialoGPT">[Code]</a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>FreeLB: Enhanced Adversarial Training for Language Understanding </b>  <br />
-    Chen Zhu, Yu Cheng, Zhe Gan, <b>Siqi Sun</b>, Tom Goldstein, Jingjing Liu
-<br />
-<a href="https://arxiv.org/abs/1909.11764"> ICLR 2020 (spotlight) </a>
-</li>
-</ul>
-
-
-<ul>
-<li><p><b>Patient Knowledge Distillation for BERT Model Compression</b>  <br />
-    <b>Siqi Sun</b>, Yu Cheng, Zhe Gan, Jingjing Liu
-<br />
-    <a href="https://arxiv.org/abs/1908.09355"> EMNLP 2019 </a><a href="https://github.com/intersun/PKD-for-BERT-Model-Compression">[Code]</a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Analysis of deep learning methods for blind protein contact prediction in CASP12</b>  <br /> 
-    Sheng Wang, <b>Siqi Sun</b> and Jinbo Xu
-<br />
-<a href="http://onlinelibrary.wiley.com/doi/10.1002/prot.25377/full"> Proteins: Structure, Function, and Bioinformatics, 2018 </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Accurate De Novo Prediction of Protein Contact Map by Ultra-Deep Learning Model</b>  <br /> 
-    Sheng Wang*, <b>Siqi Sun*</b>, Zhen Li, Renyu Zhang, Jinbo Xu
-<br />
-<a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005324">PLOS Computational Biology, 2017</a>
-<a href=" http://raptorx.uchicago.edu/ContactMap/">[Server]</a> <br /> 
-Our server <a href="http://raptorx.uchicago.edu/">(RaptorX-Contact)</a> was <a href="http://ttic.uchicago.edu/~jinbo/CASP12-RRRanking.htm">ranked 1st</a> in contact prediction in the worldwide protein structure prediction (CASP) competition 12!
-</li>
-</ul>
-
-<ul>
-<li><p><b>Learning Nonparametric Forest Graphical Models with Prior Information</b>  <br /> 
-    Yuancheng Zhu, Zhe Liu and <b>Siqi Sun</b>
-<br />
-<a href="http://arxiv.org/abs/1511.03796"> Artificial Intelligence and Statistics Conference (AISTATS' 2017) </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>Graphical Model Sketch</b>  <br /> 
-    Branislav Kveton, Hung Bui, Mohammad Ghavamzadeh, Georgios Theocharous, S. Muthukrishnan and <b>Siqi Sun</b>
-<br />
-<a href="http://link.springer.com/chapter/10.1007%2F978-3-319-46128-1_6"> The European Conference on Machine Learning (ECML-PKDD' 2016) </a>
-</li>
-</ul>
-
-<ul>
-<li><p><b>AUC-maximized Deep Convolutional Neural Fields for Sequence Labeling</b>  <br /> 
-    Sheng Wang, <b>Siqi Sun</b> and Jinbo Xu
-<br />
-<a href="http://link.springer.com/chapter/10.1007/978-3-319-46227-1_1"> The European Conference on Machine Learning (ECML-PKDD' 2016)</a>
-<a href="https://github.com/realbigws/DeepCNF_AUC">[Code]</a> 
-<a href=" http://raptorx.uchicago.edu/StructurePropertyPred/predict/">[Server]</a> <br /> 
-</li>
-</ul>
-
-<ul>
-<li><p><b>Learning structured densities via infinite dimensional exponential families</b>  <br /> 
-    <b>Siqi Sun</b>, Mladen Kolar and Jinbo Xu
-<br />
-<a href="https://papers.nips.cc/paper/6006-learning-structured-densities-via-infinite-dimensional-exponential-families"> Neural Information Processing System (NIPS' 2015) </a>
-<a href="./NIPS2015/supp.pdf">[Supplementary</a> <a href="./NIPS2015/SME.tar.gz">Code]</a> 
-</li>
-</ul>
-
-<ul>
-<li><p><b>Predicting diverse M-best protein contact maps</b><br /> 
-    <b>Siqi Sun</b>, Jianzhu Ma, Sheng Wang and Jinbo Xu<br />
-<a href="http://www.computer.org/csdl/proceedings/bibm/2015/6799/00/07359865.pdf"> IEEE International Conference on Bioinformatics and Biomedicine (BIBM' 2015) </a></p>
-</li>
-</ul>
-
-
-<ul>
-<li><p><b>Inferring Block Structure of Graphical Models in Exponential Families</b><br /> 
-    <b>Siqi Sun*</b>, Hai Wang* and Jinbo Xu<br />
-<a href="http://jmlr.org/proceedings/papers/v38/sun15.html"> Artificial Intelligence and Statistics Conference (AISTATS' 2015) </a></p>
-</li>
-</ul>
-
-
-<ul>
-<li><p><b>Learning Scale-Free Networks by Dynamic Node Specific Degree Prior</b><br /> 
-    Qingming Tang*, <b>Siqi Sun*</b> and Jinbo Xu<br />
-<a href="http://jmlr.org/proceedings/papers/v37/tangb15.html">International Conference on Machine Learning (ICML' 2015) </a>
-<a href="https://bitbucket.org/qmtang/scale_free">[Code] </a> </p>
-</li>
-</ul>
-
-
-<ul>
-<li><p><b>Adaptive Variable Clustering in Gaussian Graphical Models</b><br /> 
-    <b>Siqi Sun*</b>, Yuancheng Zhu* and Jinbo Xu<br />
-<a href="http://jmlr.org/proceedings/papers/v33/sun14.html"> Artificial Intelligence and Statistics Conference (AISTATS' 2014) </a>
-<a href="./AISTAT2014/Adaptive.tar.gz">[Code]</a>
-</p>
-</li>
-</ul>
-
-
-<ul>
-<li><p><b>An iterative network partition algorithm for accurate identification of dense network modules</b><br /> 
-    <b>Siqi Sun*</b>, Xinran Dong*, Yao Fu and Weidong Tian<br />
-<a href="http://nar.oxfordjournals.org/content/early/2011/11/25/nar.gkr1103.short">Nucleic Acids Research 2011</a></p>
-</li>
-</ul>
-
-
-<h2>Professional Activities</h2>
-<p>Reviewer of AISTATS 2016 - 2018, ECML 2016 - 2018, ICML 2015, NIPS 2015-2019, IEEE/ACM TCBB <br/>
- Program Committee of ECML-PKDD 2017 and 2018 for the Applied Data Science Track </p>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-156898602-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-156898602-1');
-</script>
 </body>
-
+</html>
